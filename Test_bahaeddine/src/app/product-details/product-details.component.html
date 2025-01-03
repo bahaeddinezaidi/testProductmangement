@@ -1,0 +1,54 @@
+<div class="details-container" *ngIf="!loading">
+    <mat-card class="product-card" *ngIf="product">
+      <div class="card-header">
+        <mat-icon class="category-icon">category</mat-icon>
+        <span class="category-label">{{product.categorie}}</span>
+        <button mat-icon-button routerLink="/products" class="close-button">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+  
+      <mat-card-content>
+        <div class="product-info">
+          <div class="info-section">
+            <h1 class="product-name">{{product.nom}}</h1>
+            <div class="product-id">
+              <mat-icon>fingerprint</mat-icon>
+              <span>ID: {{product.id}}</span>
+            </div>
+          </div>
+  
+          <div class="price-tag">
+            <span class="currency">$</span>
+            <span class="amount">{{product.prix}}</span>
+          </div>
+        </div>
+  
+        <div class="actions">
+          <button mat-raised-button color="primary" routerLink="/products">
+            <mat-icon>arrow_back</mat-icon>
+            Back to Products
+          </button>
+          <button mat-raised-button color="accent" (click)="editProduct(product.id)">
+            <mat-icon>edit</mat-icon>
+            Edit Product
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-card class="not-found" *ngIf="!product">
+      <mat-icon>error_outline</mat-icon>
+      <h2>Product Not Found</h2>
+      <button mat-raised-button color="primary" routerLink="/products">
+        Back to Products
+      </button>
+    </mat-card>
+  </div>
+  
+  <mat-progress-spinner 
+    *ngIf="loading"
+    mode="indeterminate"
+    diameter="50"
+    class="loading-spinner">
+  </mat-progress-spinner>

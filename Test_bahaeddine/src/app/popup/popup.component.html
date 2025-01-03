@@ -1,0 +1,39 @@
+<form [formGroup]="productForm" (ngSubmit)="saveProduct()">
+  <mat-card>
+    <mat-card-content>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Product Name" formControlName="nom" required>
+        <mat-error *ngIf="productForm.get('nom')?.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Price</mat-label>
+        <input matInput placeholder="Product Price" formControlName="prix" type="number" required>
+        <mat-error *ngIf="productForm.get('prix')?.hasError('required')">
+          Price is required
+        </mat-error>
+        <mat-error *ngIf="productForm.get('prix')?.hasError('min')">
+          Price must be greater than 0
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Category</mat-label>
+        <input matInput placeholder="Category" formControlName="categorie" required>
+        <mat-error *ngIf="productForm.get('categorie')?.hasError('required')">
+          Category is required
+        </mat-error>
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-footer>
+      <div class="example-button-row">
+        <button mat-raised-button color="primary" type="submit">Save</button>
+        <button mat-raised-button color="accent" type="button" (click)="closePopup()">Close</button>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</form>

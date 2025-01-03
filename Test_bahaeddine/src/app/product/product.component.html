@@ -1,0 +1,81 @@
+<div class="mat-elevation-z8">
+    <div class="header-actions">
+      <button mat-raised-button color="primary" (click)="openPopup('')" class="create-button">
+        <mat-icon>add</mat-icon>
+        <span>Add Product</span>
+      </button>
+    </div>
+    <mat-form-field class="filter-field">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search products..." #input>
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <table mat-table [dataSource]="finalData" matSort class="responsive-table">
+      
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <mat-icon class="header-icon">fingerprint</mat-icon>
+          ID
+        </th>
+        <td mat-cell *matCellDef="let element" data-label="ID">{{element.id}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="nom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <mat-icon class="header-icon">label</mat-icon>
+          Name
+        </th>
+        <td mat-cell *matCellDef="let element" data-label="Name">{{element.nom}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="prix">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <mat-icon class="header-icon">payments</mat-icon>
+          Price
+        </th>
+        <td mat-cell *matCellDef="let element" data-label="Price">{{element.prix | currency:'USD'}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="categorie">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <mat-icon class="header-icon">category</mat-icon>
+          Category
+        </th>
+        <td mat-cell *matCellDef="let element" data-label="Category">{{element.categorie}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-icon class="header-icon">settings</mat-icon>
+          Actions
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="action-buttons">
+            <button mat-icon-button color="primary" (click)="editProduct(element.id)" matTooltip="Edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="removeProduct(element.id)" matTooltip="Delete">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button color="info" [routerLink]="['/product', element.id]" matTooltip="View Details">
+                <mat-icon>visibility</mat-icon>
+              </button>
+          </div>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayColumns;" class="hover-row"></tr>
+  
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="5">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      [pageSize]="5"
+      showFirstLastButtons
+      aria-label="Select page">
+    </mat-paginator>
+  </div>
+  
